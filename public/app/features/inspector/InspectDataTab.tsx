@@ -89,7 +89,8 @@ export const InspectDataTab = memo(function InspectDataTab({
   const transformedData = !data ? [] : shouldJoin && joined?.input === data ? joined.frames : data;
 
   const exportCsv = (dataFrames: DataFrame[]) => {
-    const dataFrame = dataFrames[dataFrameIndex];
+    // the selected frame may not exist after transformations (e.g. a join reduces the frame count)
+    const dataFrame = dataFrames[dataFrameIndex] ?? dataFrames[0];
 
     downloadDataFrameAsCsv(dataFrame, dataName, {}, transformId, excelCompatibilityMode);
   };

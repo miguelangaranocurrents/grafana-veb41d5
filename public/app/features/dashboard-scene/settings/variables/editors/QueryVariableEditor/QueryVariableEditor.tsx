@@ -53,14 +53,18 @@ export function QueryVariableEditor({ variable, onRunQuery }: QueryVariableEdito
   } = variable.useState();
   const { value: timeRange } = sceneGraph.getTimeRange(variable).useState();
 
+  // regex and sort are applied when the options are computed, so re-run to refresh the preview
   const onRegExChange = (event: React.FormEvent<HTMLTextAreaElement>) => {
     variable.setState({ regex: event.currentTarget.value });
+    onRunQuery();
   };
   const onRegexApplyToChange = (event: VariableRegexApplyTo) => {
     variable.setState({ regexApplyTo: event });
+    onRunQuery();
   };
   const onSortChange = (sort: SelectableValue<VariableSort>) => {
     variable.setState({ sort: sort.value });
+    onRunQuery();
   };
   const onRefreshChange = (refresh: VariableRefresh) => {
     variable.setState({ refresh: refresh });
